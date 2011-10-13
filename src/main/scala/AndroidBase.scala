@@ -12,10 +12,10 @@ object AndroidBase {
     Process (<x>
       {aPath.absolutePath} package --auto-add-overlay -m
         --custom-package {mPackage}
-        -M {mPath.absolutePath}
-        -S {resPath.absolutePath}
-        -I {jPath.absolutePath}
-        -J {javaPath.absolutePath}
+        -M {mPath.absolutePath.replace(" ", "\\ ")}
+        -S {resPath.absolutePath.replace(" ", "\\ ")}
+        -I {jPath.absolutePath.replace(" ", "\\ ")}
+        -J {javaPath.absolutePath.replace(" ", "\\ ")}
     </x>) !
 
     javaPath ** "R.java" get
