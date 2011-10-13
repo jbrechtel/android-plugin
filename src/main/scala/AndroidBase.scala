@@ -9,6 +9,7 @@ object AndroidBase {
   private def aaptGenerateTask =
     (manifestPackage, aaptPath, manifestPath, mainResPath, jarPath, managedJavaPath) map {
     (mPackage, aPath, mPath, resPath, jPath, javaPath) =>
+    println("start --aapt...............")
     Process (<x>
       {aPath.absolutePath} package --auto-add-overlay -m
         --custom-package {mPackage}
