@@ -19,14 +19,17 @@ object AndroidInstall {
 
   private def aaptPackageTask: Project.Initialize[Task[File]] =
   (aaptPath, manifestPath, mainResPath, mainAssetsPath, jarPath, resourcesApkPath) map {
-    (apPath, manPath, rPath, assetPath, jPath, resApkPath) => Process(<x>
-      {apPath} package --auto-add-overlay -f
-        -M {manPath.toString.replace(" ", "\\ ")}
-        -S {rPath.toString.replace(" ", "\\ ")}
-        -A {assetPath.toString.replace(" ", "\\ ")}
-        -I {jPath.toString.replace(" ", "\\ ")}
-        -F {resApkPath.toString.replace(" ", "\\ ")}
-    </x>).!
+    (apPath, manPath, rPath, assetPath, jPath, resApkPath) => 
+    val pathArgs = Map("-M" -> manPath,
+                       "-S" -> rPath,
+                       "-A" -> assetPath,
+                       "-I" -> jPath,
+                       "-F" -> resApkPath).foldLeft("") { (args,kv) => args+" "+kv._1+" \""+kv._2+"\"" }
+
+    println("path args: " + pathArgs)
+
+    Process(apPath+" package --auto-add-overlay -f "+pathArgs) !
+
     resApkPath
   }
 

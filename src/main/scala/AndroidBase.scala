@@ -9,29 +9,14 @@ object AndroidBase {
   private def aaptGenerateTask =
     (manifestPackage, aaptPath, manifestPath, mainResPath, jarPath, managedJavaPath) map {
     (mPackage, aPath, mPath, resPath, jPath, javaPath) =>
-    println("start --aapt...............")
+    val pathArgs = Map("-M" -> mPath.absolutePath,
+                       "-S" -> resPath.absolutePath,
+                       "-I" -> jPath.absolutePath,
+                       "-J" -> javaPath.absolutePath).foldLeft("") { (args,kv) => args+" "+kv._1+" \""+kv._2+"\"" }
 
-    val foo = <x>
-      {aPath.absolutePath} package --auto-add-overlay -m
-        --custom-package {mPackage}
-        -M "{mPath.absolutePath}"
-        -S "{resPath.absolutePath}"
-        -I "{jPath.absolutePath}"
-        -J "{javaPath.absolutePath}"
-    </x>
+    println("path args: " + pathArgs)
 
-    println("########################")
-    println(foo)
-    println("########################")
-
-    val res = Process (<x>
-      {aPath.absolutePath} package --auto-add-overlay -m
-        --custom-package {mPackage}
-        -M "{mPath.absolutePath}"
-        -S "{resPath.absolutePath}"
-        -I "{jPath.absolutePath}"
-        -J "{javaPath.absolutePath}"
-    </x>) !
+    Process (aPath.absolutePath + " package --auto-add-overlay -m --custom-package {mPackage} "+pathArgs) !
 
     javaPath ** "R.java" get
   }
