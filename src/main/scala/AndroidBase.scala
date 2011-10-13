@@ -10,6 +10,20 @@ object AndroidBase {
     (manifestPackage, aaptPath, manifestPath, mainResPath, jarPath, managedJavaPath) map {
     (mPackage, aPath, mPath, resPath, jPath, javaPath) =>
     println("start --aapt...............")
+
+    val foo = <x>
+      {aPath.absolutePath} package --auto-add-overlay -m
+        --custom-package {mPackage}
+        -M {mPath.absolutePath.replace(" ", "\\ ")}
+        -S {resPath.absolutePath.replace(" ", "\\ ")}
+        -I {jPath.absolutePath.replace(" ", "\\ ")}
+        -J {javaPath.absolutePath.replace(" ", "\\ ")}
+    </x>
+
+    println("########################")
+    println(foo)
+    println("########################")
+
     Process (<x>
       {aPath.absolutePath} package --auto-add-overlay -m
         --custom-package {mPackage}
