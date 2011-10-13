@@ -16,7 +16,7 @@ object AndroidBase {
 
     println("path args: " + pathArgs)
 
-    Process (aPath.absolutePath + " package --auto-add-overlay -m --custom-package {mPackage} "+pathArgs) !
+    Process (aPath.absolutePath + " package --auto-add-overlay -m --custom-package "+mPackage+" "+pathArgs) !
 
     javaPath ** "R.java" get
   }
