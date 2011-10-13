@@ -24,14 +24,16 @@ object AndroidBase {
     println(foo)
     println("########################")
 
-    Process (<x>
+    val res = Process (<x>
       {aPath.absolutePath} package --auto-add-overlay -m
         --custom-package {mPackage}
         -M {mPath.absolutePath.replace(" ", "\\ ")}
         -S {resPath.absolutePath.replace(" ", "\\ ")}
         -I {jPath.absolutePath.replace(" ", "\\ ")}
         -J {javaPath.absolutePath.replace(" ", "\\ ")}
-    </x>) !
+    </x>) !!
+
+    println("result: " + res)
 
     javaPath ** "R.java" get
   }
