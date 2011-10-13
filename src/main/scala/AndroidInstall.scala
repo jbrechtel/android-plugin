@@ -21,11 +21,11 @@ object AndroidInstall {
   (aaptPath, manifestPath, mainResPath, mainAssetsPath, jarPath, resourcesApkPath) map {
     (apPath, manPath, rPath, assetPath, jPath, resApkPath) => Process(<x>
       {apPath} package --auto-add-overlay -f
-        -M {manPath}
-        -S {rPath}
-        -A {assetPath}
-        -I {jPath}
-        -F {resApkPath}
+        -M {manPath.toString.replace(" ", "\\ ")}
+        -S {rPath.toString.replace(" ", "\\ ")}
+        -A {assetPath.toString.replace(" ", "\\ ")}
+        -I {jPath.toString.replace(" ", "\\ ")}
+        -F {resApkPath.toString.replace(" ", "\\ ")}
     </x>).!
     resApkPath
   }
