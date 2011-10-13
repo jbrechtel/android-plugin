@@ -45,7 +45,7 @@ object AndroidInstall {
 
       if (!uptodate) {
         val noLocals = if (proguardOptimizations.isEmpty) "" else "--no-locals"
-        val dxCmd = String.format("%s %s --dex " + noLocals + " --output=%s %s",
+        val dxCmd = String.format("%s %s --dex " + noLocals + " --output=\"%s\" \"%s\"",
           dxPath, dxMemoryParameter(dxJavaOpts), classesDexPath, inputs.mkString(" "))
         streams.log.debug(dxCmd)
         streams.log.info("Dexing "+classesDexPath)
